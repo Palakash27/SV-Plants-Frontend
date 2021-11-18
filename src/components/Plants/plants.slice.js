@@ -1,5 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as plantsService from "../../services/plants.service";
+import {
+  getPlantStatus,
+  isResting,
+  isStranded,
+  isWatering,
+} from "./plants.helper";
 
 export const fetchPlants = createAsyncThunk("plants/fetchPlants", () => {
   return plantsService.fetchPlants();
@@ -29,7 +35,13 @@ export const plantsSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder.addCase(fetchPlants.fulfilled, (state, action) => {
-      state.plants = action.payload;
+      state.plants = action.payload.map(plant => ({
+        ...plant,
+        watering: isWatering(plant),
+        resting: isResting(plant),
+        stranded: isStranded(plant),
+        status: getPlantStatus(plant),
+      }));
     });
   },
 });

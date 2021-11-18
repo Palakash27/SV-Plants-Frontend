@@ -1,25 +1,13 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import {
-  getPlantStatus,
-  isResting,
-  isStranded,
-  isWatering,
-} from "./plants.helper";
 import { startWateringPlant, stopWateringPlant } from "./plants.slice";
 import classNames from "./plants.module.css";
 import clsx from "clsx";
 
 export default function Plants({ plant }) {
   const dispatch = useDispatch();
-  const { name, lastWateringEnd } = plant;
+  const { name, lastWateringEnd, watering, resting, stranded, status } = plant;
   const lastWateredDate = new Date(lastWateringEnd);
-
-  const watering = isWatering(plant);
-  const resting = isResting(plant);
-  const stranded = isStranded(plant);
-
-  const status = getPlantStatus(plant);
 
   const handleWatering = () => {
     if (!watering && !resting) {
