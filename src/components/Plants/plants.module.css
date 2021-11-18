@@ -1,0 +1,16 @@
+.status {
+  border-radius: 5px;
+  padding: 10px;
+  color: white;
+  background-color: green;
+}
+
+.status.watering {
+  background-color: #64c3c3;
+}
+.status.resting {
+  background-color: #8f8f8f;
+}
+.status.stranded {
+  background-color: red;
+}
